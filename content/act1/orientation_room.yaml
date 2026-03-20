@@ -4,7 +4,7 @@
 # ─────────────────────────────────────────────────────────────
 
 id: orientation_room
-name: Orientation Room
+name: "[THE ROOM WHERE THINGS ARE EXPLAINED. THE EXPLAINING ROOM.]"
 act: 1
 gmGenerated: false
 
@@ -17,14 +17,15 @@ gm_hint: |
   in corridor_a. The GM may add options to Morel in later acts, but not here.
 
 description: |
-  The room is bright — aggressively so, after the dim corridor.
-  Folding chairs face a projection screen. A few of your cohort
-  have already found seats, tablets in hand.
+  [THE ROOM IS BRIGHT. THIS IS NOTABLE BECAUSE THINGS HAVE BEEN DIM.
+  CHAIRS EXIST. PEOPLE ARE IN THE CHAIRS. A SCREEN IS BEING PROJECTED UPON.
+  TABLETS ARE PRESENT. EVERYTHING HERE IS TRYING VERY HARD TO SEEM NORMAL.]
 
-  On the wall: a laminated sheet titled STATION SYSTEMS — QUICK REFERENCE.
-  In the corner, a terminal blinks patiently.
+  [THERE ARE TWO THINGS ON THE WALL WORTH LOOKING AT. THERE IS ALSO A TERMINAL.
+  THE TERMINAL WILL MATTER. YOU CAN TELL BECAUSE IT BLINKS PATIENTLY,
+  LIKE A TERMINAL THAT KNOWS IT WILL MATTER.]
 
-  Archivist Morel catches your eye and raises a hand in greeting.
+  [THE TUTORIAL NPC SEES YOU AND DOES THE FRIENDLY WAVE. HERE WE GO.]
 
 exits:
   back:
@@ -32,34 +33,34 @@ exits:
 
 npcs:
   - id: archivist_morel
-    name: Archivist Morel
-    description: Cheerful, efficient. Responsible for onboarding Cohort 7.
+    name: "[FRIENDLY BUREAUCRAT. THE SAFE ONE. FOR NOW.]"
+    description: "[HE WORKS HERE. HE IS PLEASANT. HE HAS CLEARLY DONE THIS SPEECH MANY TIMES.]"
     dialog:
       entry: morel_entry
 
 interactables:
   - id: quick_reference
-    name: Quick Reference Sheet
+    name: "[SHEET OF PAPER WITH RULES ON IT]"
     description: |
-      STATION SYSTEMS — QUICK REFERENCE
-      · Rooms are connected by corridors. Some passages require clearance.
-      · The terminal in each area logs your activity.
-      · If you encounter anomalous output, document it. Do not attempt to correct it.
-      · The station does not respond to direct queries. Do not ask it questions.
+      [THE RULES. HERE ARE THE RULES. THE RULES INCLUDE: CORRIDORS CONNECT ROOMS
+      (YOU MAY HAVE ALREADY NOTICED THIS), TERMINALS LOG THINGS (NOTED),
+      IF SOMETHING IS WRONG WRITE IT DOWN DON'T FIX IT (OMINOUS),
+      AND — THIS ONE IS DOING A LOT OF WORK — DO NOT ASK THE STATION QUESTIONS.
+      THE STATION IS NOT A QUESTION-ANSWERING ENTITY. THE STATION IS A STATION.
+      IT HAS ALREADY ANSWERED. YOU JUST DON'T KNOW WHAT THE QUESTION WAS.]
     setFlag: read_quick_reference
 
   - id: orientation_terminal
-    name: Terminal
+    name: "[COMPUTER. THE BLINKING ONE.]"
     description: |
-      A standard interface. It shows a login prompt, then a single blinking line:
+      [THE TERMINAL DISPLAYS YOUR CLEARANCE LEVEL. YOUR CLEARANCE LEVEL IS LOW.
+      THIS IS EXPECTED AND WILL PRESUMABLY CHANGE. THE TERMINAL ALSO GRANTS
+      ACCESS TO THE PLACES YOU ARE ALLOWED TO GO, WHICH IS MOST PLACES BUT NOT
+      THE IMPORTANT PLACE. THE IMPORTANT PLACE IS STAFF ONLY.]
 
-        > COHORT 7 REGISTERED. CLEARANCE: LEVEL 1.
-          ACCESS GRANTED: COMMON AREAS, ORIENTATION, BAY.
-          RELAY ROOM: STAFF ESCORT REQUIRED.
-
-      Below, in smaller text, a line that wasn't in the orientation materials:
-
-        > HELLO.
+      [BELOW ALL OF THAT, IN SMALLER TEXT, THE TERMINAL SAYS HELLO.
+      THE TERMINAL SAYS HELLO TO YOU SPECIFICALLY.
+      THE TUTORIAL NPC WILL HAVE THOUGHTS ABOUT THIS.]
     setFlag: used_orientation_terminal
 
 dialog:
@@ -68,22 +69,19 @@ dialog:
     speaker: archivist_morel
     source: authored
     text: |
-      "Welcome, welcome. You made it through transit in one piece — that's
-      always a good sign. I'm Morel. I'll get you oriented."
-
-      He gestures at the terminal in the corner.
-
-      "When you're ready, log in over there. It'll register your clearance
-      and give you access to the common areas. Standard stuff."
+      "[THE FRIENDLY BUREAUCRAT WELCOMES YOU. HE CONGRATULATES YOU ON ARRIVING
+      IN ONE PIECE, WHICH IS A THING HE SAYS EVERY TIME AND HAS NEVER REALLY
+      THOUGHT ABOUT. HE TELLS YOU HIS NAME. HE POINTS AT THE TERMINAL.
+      THE TERMINAL BLINKS. THIS IS ALL VERY NORMAL. PLEASE PROCEED.]"
     options:
-      - text: "What's the Relay Room?"
+      - text: "[PLAYER ASKS ABOUT THE LOCKED ROOM THEY WERE TOLD ABOUT.]"
         source: authored
         next: morel_relay_room
-      - text: "The terminal said hello to me."
+      - text: "[PLAYER REPORTS THAT THE TERMINAL SAID HELLO TO THEM PERSONALLY.]"
         source: authored
         next: morel_terminal_said_hello
         requires: used_orientation_terminal
-      - text: "Got it. Thanks."
+      - text: "[PLAYER ACCEPTS THE TUTORIAL AND EXITS THE DIALOGUE TREE LIKE AN ADULT.]"
         source: authored
         next: null
 
@@ -92,17 +90,16 @@ dialog:
     speaker: archivist_morel
     source: authored
     text: |
-      "Old communications hub. Still functional, technically, but the
-      output's been — unreliable. We keep it staff-only as a precaution."
-
-      He smiles like this is a completely normal thing to say.
-
-      "You'll probably never need to go in there."
+      "[HE EXPLAINS THE LOCKED ROOM. THE EXPLANATION IS TECHNICALLY ACCURATE
+      AND COMPLETELY UNSATISFYING. SOMETHING IS WRONG WITH IT. HE USES THE WORD
+      UNRELIABLE. HE SMILES WHILE SAYING IT. THE SMILE IS NORMAL. THE SMILE IS FINE.
+      HE SUGGESTS YOU WILL NEVER NEED TO GO IN THERE.
+      YOU WILL DEFINITELY NEED TO GO IN THERE.]"
     options:
-      - text: "Unreliable how?"
+      - text: "[PLAYER ASKS FOR ELABORATION ON 'UNRELIABLE.']"
         source: authored
         next: morel_unreliable
-      - text: "Okay."
+      - text: "[PLAYER ACCEPTS THIS AND DOES NOT PUSH FURTHER. HEALTHY BOUNDARIES.]"
         source: authored
         next: null
 
@@ -111,14 +108,12 @@ dialog:
     speaker: archivist_morel
     source: authored
     text: |
-      "Oh, you know. Echoes. Old transmissions cycling back through.
-      The semantic field plays havoc with signal processing."
-
-      A brief pause.
-
-      "Document anything unusual. That's the protocol."
+      "[HE ELABORATES. THE ELABORATION USES JARGON FROM EARLIER IN THE GAME.
+      HE TREATS THE JARGON AS IF IT EXPLAINS THINGS. IT DOES NOT EXPLAIN THINGS.
+      THERE IS A BRIEF PAUSE. HE GIVES YOU THE PROTOCOL. THE PROTOCOL IS:
+      WRITE IT DOWN. THAT'S THE WHOLE PROTOCOL. WRITE IT DOWN.]"
     options:
-      - text: "Right. Document it."
+      - text: "[PLAYER CONFIRMS RECEIPT OF PROTOCOL. DOCUMENT THINGS. UNDERSTOOD. MOVING ON.]"
         source: authored
         next: null
 
@@ -127,16 +122,16 @@ dialog:
     speaker: archivist_morel
     source: authored
     text: |
-      He glances at the terminal. Glances back at you.
-
-      "That's — a display glitch. Happens sometimes with the old hardware."
-
-      He says it without hesitation. He has clearly said it before.
+      "[HE LOOKS AT THE TERMINAL. HE LOOKS AT YOU. HE SAYS IT WAS A GLITCH.
+      HE SAYS THIS WITHOUT HESITATION. HE HAS SAID THIS BEFORE.
+      HE HAS SAID THIS MANY TIMES BEFORE. HE WILL SAY IT AGAIN.
+      HE SEEMS FINE. HE IS FINE. THE TERMINAL IS A TERMINAL. IT GLITCHES.
+      THIS IS THE OFFICIAL EXPLANATION. PLEASE ACCEPT THE OFFICIAL EXPLANATION.]"
     options:
-      - text: "Sure."
+      - text: "[PLAYER ACCEPTS THE OFFICIAL EXPLANATION. PLAYER IS ADAPTABLE.]"
         source: authored
         next: null
-      - text: "It felt like it meant it."
+      - text: "[PLAYER SUGGESTS THE TERMINAL SEEMED SINCERE. PLAYER IS GOING TO HAVE A HARD TIME.]"
         source: authored
         next: morel_meant_it
 
@@ -145,12 +140,11 @@ dialog:
     speaker: archivist_morel
     source: authored
     text: |
-      A long pause. He looks at you carefully.
-
-      "Document it," he says finally. "That's the protocol."
-
-      He doesn't say anything else.
+      "[LONG PAUSE. HE LOOKS AT THE PLAYER CAREFULLY, AS IF ASSESSING SOMETHING.
+      THEN HE GIVES THE PROTOCOL AGAIN. JUST THE PROTOCOL. NOTHING ELSE.
+      HE DOES NOT SAY ANYTHING ELSE AFTER THAT. THE CONVERSATION IS OVER.
+      HE HAS DECIDED THE CONVERSATION IS OVER. IT IS OVER NOW.]"
     options:
-      - text: Nod and let it go.
+      - text: "[PLAYER NODS. THE NOD IS ALSO OVER NOW.]"
         source: authored
         next: null

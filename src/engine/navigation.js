@@ -6,7 +6,7 @@
  */
 
 import { get } from 'svelte/store';
-import { currentRoomId, rooms, flags, markVisited, gmQueue } from './state.js';
+import { currentRoomId, rooms, flags, markVisited, gmQueue, registerRoom } from './state.js';
 import { gmPrefetchRoom } from '../gm/index.js';
 
 /**
@@ -71,7 +71,13 @@ function schedulePrefetch(roomId) {
     // Only prefetch rooms that don't exist yet (GM needs to generate them)
     if (!roomMap[targetId] && !queue.has(targetId)) {
       gmQueue.update(q => new Set([...q, targetId]));
-      gmPrefetchRoom(targetId, roomId);
+      gmPrefetchRoom(targetId, roomId).then(room => {
+        if (room) registerRoom(room);
+        gmQueue.update(q => { const next = new Set(q); next.delete(targetId); return next; });
+      }).catch(err => {
+        console.error(`[GM] Failed to prefetch ${targetId}:`, err);
+        gmQueue.update(q => { const next = new Set(q); next.delete(targetId); return next; });
+      });
     }
   }
 }

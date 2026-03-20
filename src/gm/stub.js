@@ -49,6 +49,14 @@ function stubWarn() {
 }
 
 export class GMStub {
+  async preSession() {
+    stubLog('preSession', {});
+    await stubDelay();
+    return [
+      { text: '[THE STATION WOULD REGISTER SOMETHING IT WILL NOT HOLD. IT DOES NOT.]', cite: 'station' },
+    ];
+  }
+
   constructor() {
     stubWarn();
     console.warn(
@@ -67,10 +75,8 @@ export class GMStub {
 
     return {
       id: roomId,
-      name: `[STUB] ${roomId.replace(/_/g, ' ')}`,
-      description: `[STUB GM GENERATED] You stand in ${roomId.replace(/_/g, ' ')}. ` +
-        `This room was invented by the stub. It smells of placeholder text and unrealized potential. ` +
-        `The walls hum with the absence of a real language model.`,
+      name: `[A ROOM]`,
+      description: `[YOU ARE IN A PLACE. THERE ARE WALLS. POSSIBLY A FLOOR. THE LIGHTING IS SOME KIND OF LIGHTING. YOU FEEL SOMETHING, PROBABLY.]`,
       gmGenerated: true,
       gmSource: 'stub',                          // ← NEVER on real GM rooms
       exits: {
@@ -80,9 +86,8 @@ export class GMStub {
       interactables: [
         {
           id: 'stub_sign',
-          name: '[STUB] Placard',
-          description: '[STUB GM] A placard reads: "This room was not authored by a human ' +
-            'or a real AI. It was produced by GMStub. Please implement live.js."',
+          name: '[AN OBJECT]',
+          description: '[IT IS AN OBJECT. IT HAS PROPERTIES. YOU COULD PROBABLY INTERACT WITH IT IF THIS WERE REAL.]',
         }
       ],
     };
@@ -97,20 +102,19 @@ export class GMStub {
 
     return [
       {
-        text: '[STUB] Ask about the station (fake option)',
+        text: '[SAY A THING TO THE PERSON]',
         source: 'gm',           // ← correct source tag — engine uses this, not player
         _stubNote: 'STUB: real GM would generate contextual options here',
         next: {
           id: `stub_response_${Date.now()}`,
           speaker: npcId,
-          text: `[STUB GM] ${npcId} says something that the real GM would make coherent and atmospheric. ` +
-            `Instead, you get this: the stub has no knowledge of the game world.`,
+          text: `[THE PERSON RESPONDS. THEIR RESPONSE CONTAINS WORDS ARRANGED IN AN ORDER. SOME OF THE WORDS MAY BE RELEVANT TO YOUR SITUATION.]`,
           source: 'gm',
           options: [],
         },
       },
       {
-        text: '[STUB] Walk away (fake option)',
+        text: '[STOP TALKING TO THE PERSON]',
         source: 'gm',
         _stubNote: 'STUB: this ends dialog',
         next: null,
@@ -129,14 +133,12 @@ export class GMStub {
     return {
       id: `stub_station_${Date.now()}`,
       speaker: 'station',
-      text: '[STUB GM — STATION] The station would respond with something liminal and deeply felt. ' +
-        `Instead, the stub acknowledges your message ("${playerMessage}") ` +
-        'and returns this placeholder. Implement live.js.',
+      text: `[THE STATION SAYS SOMETHING. IT IS MEANINGFUL AND PERHAPS SLIGHTLY OMINOUS. YOU ARE AFFECTED BY IT IN SOME WAY.]`,
       source: 'station',
       _stubNote: 'STUB: real station responses emerge from persistent GM context',
       options: [
         {
-          text: '[STUB] Respond to the station (fake)',
+          text: '[RESPOND TO THE STATION IN SOME WAY]',
           source: 'station',
           next: null,
         },

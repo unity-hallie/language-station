@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────
 
 id: corridor_a
-name: Corridor A
+name: "[HALLWAY. THE FIRST REAL ONE. IT CURVES. OMINOUSLY.]"
 act: 1
 gmGenerated: false
 
@@ -18,15 +18,18 @@ gm_hint: |
   There are no NPCs here by default — the GM may place one if narratively warranted.
 
 description: |
-  The corridor curves away in both directions. The light here is dimmer —
-  panels overhead flicker in a rhythm that almost sounds deliberate.
+  [THE CORRIDOR. IT CURVES. THE LIGHTS FLICKER IN A PATTERN THAT THE GAME
+  WOULD LIKE YOU TO NOTICE. YOU HAVE NOTICED IT. GOOD. IT WAS DELIBERATE.
+  THE FLICKERING SUGGESTS SOMETHING WITHOUT SPECIFYING WHAT. THIS IS CRAFT.]
 
-  To your right, a door marked RELAY ROOM. A keypad beside it glows amber.
-  Behind you, the Arrival Bay.
-  Ahead, the corridor continues into the station's interior.
+  [THERE IS A LOCKED DOOR. THE DOOR IS IMPORTANT. THE DOOR IS LOCKED BECAUSE
+  YOU DON'T HAVE CLEARANCE YET. THE AMBER GLOW IS THE GAME'S WAY OF SAYING
+  "NOT YET BUT EVENTUALLY." ALSO BEHIND YOU IS THE PLACE YOU CAME FROM.
+  ALSO AHEAD IS THE PLACE YOU ARE GOING.]
 
-  On the wall: a panel of small indicator lights, most of them green.
-  One is red. One is a color you don't have a word for.
+  [ON THE WALL: SOME LIGHTS. ONE OF THEM IS A COLOR. THE OTHER LIGHTS ARE ALSO
+  COLORS. ONE OF THE COLORS IS NOT A COLOR. THIS WILL NOT BE ADDRESSED FURTHER
+  AT THIS TIME BUT IT WILL BE ADDRESSED.]
 
 exits:
   back:
@@ -37,32 +40,33 @@ exits:
     roomId: relay_room
     requires: used_orientation_terminal
     lockedMessage: |
-      The keypad glows amber. You haven't registered your clearance yet.
-      Orientation first.
+      [THE DOOR IS LOCKED. THE KEYPAD IS AMBER. AMBER MEANS NO.
+      YOU NEED TO DO THE TUTORIAL THING FIRST. GO DO THE TUTORIAL THING.]
 
 npcs: []
 
 interactables:
   - id: indicator_panel
-    name: Indicator Panel
+    name: "[PANEL OF LITTLE LIGHTS. STATUS LIGHTS. THE LIGHTS HAVE STATUS.]"
     description: |
-      The lights are labeled in small text below each one.
-      Most read NOMINAL. The red one reads RELAY — SIGNAL ANOMALY.
-      The other one — the one that isn't quite a color — has no label.
-      The space beneath it is blank, as if the label was never printed,
-      or was removed, or simply isn't there.
+      [MOST OF THE LIGHTS SAY EVERYTHING IS FINE. ONE LIGHT SAYS SOMETHING
+      IS NOT FINE. THE NOT-FINE THING IS THE LOCKED ROOM. OF COURSE IT IS.
+      THE REMAINING LIGHT IS A COLOR THAT DOES NOT HAVE A LABEL BECAUSE
+      WHOEVER MADE THE PANEL DID NOT LABEL IT. OR COULD NOT LABEL IT.
+      OR THE LABEL IS SOMEWHERE ELSE NOW. THE SPACE WHERE A LABEL WOULD GO
+      IS PRESENT. THE LABEL IS NOT. THIS IS THE WHOLE SITUATION WITH THE LABEL.]
 
   - id: corridor_sign
-    name: Directional Sign
+    name: "[SIGN THAT TELLS YOU WHERE THINGS ARE. DIRECTIONS. THE SIGN OF DIRECTIONS.]"
     description: |
-      → COMMONS / LABS / QUARTERS
-      ← ARRIVAL BAY / DOCKING
-      → RELAY ROOM (STAFF ONLY)
+      [THE SIGN LISTS THE PLACES AND WHICH WAY TO GO TO GET TO THEM.
+      THE PLACES INCLUDE: MORE OF THE STATION (FORWARD), WHERE YOU CAME FROM (BACK),
+      AND THE LOCKED ROOM (LOCKED). THE SIGN IS HELPFUL. THE SIGN IS DOING ITS JOB.]
 
-      Someone has written below, in pencil, very small:
-      "it changes when you're not looking"
-
-      The handwriting doesn't match anyone on the staff roster.
-      You don't know how you know that.
+      [BELOW THE OFFICIAL SIGN CONTENT, WRITTEN BY HAND IN PENCIL, VERY SMALL:
+      A NOTE THAT IMPLIES THE SIGN CANNOT BE TRUSTED. THE NOTE WAS WRITTEN BY SOMEONE.
+      THE SOMEONE IS UNKNOWN. YOU SOMEHOW KNOW THE HANDWRITING IS NOT FROM ANYONE
+      ON STAFF. YOU DO NOT KNOW HOW YOU KNOW THIS. THE GAME KNOWS HOW YOU KNOW THIS.
+      THE GAME WILL NOT TELL YOU YET.]
 
 dialog: {}

@@ -14,14 +14,13 @@
  */
 
 import { GMStub } from './stub.js';
-// import { GMLive } from './live.js';  // ← wire in when ready
+import { GMLive } from './live.js';
 
 const GM_MODE = import.meta.env.VITE_GM_MODE ?? 'stub';
 
 function getGM() {
   if (GM_MODE === 'live') {
-    // return new GMLive();
-    throw new Error('[GM] Live GM not yet implemented. Set VITE_GM_MODE=stub.');
+    return new GMLive();
   }
   return new GMStub();
 }
@@ -63,4 +62,12 @@ export async function gmGenerateOptions(npcId, stateSnapshot, dialogHistory) {
  */
 export async function gmStationResponse(stateSnapshot, playerMessage) {
   return gm.stationResponse(stateSnapshot, playerMessage);
+}
+
+/**
+ * Ask the GM to register its lines and veils before the player sees the safety screen.
+ * Returns array of { text, cite: 'station' }
+ */
+export async function gmPreSession() {
+  return gm.preSession();
 }

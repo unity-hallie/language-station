@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { currentRoomId, rooms, activeDialog, markVisited } from './engine/state.js';
+  import { currentRoomId, rooms, activeDialog, markVisited, setFlag } from './engine/state.js';
   import { navigate, getAvailableExits } from './engine/navigation.js';
   import { startDialog, chooseOption, closeDialog } from './engine/dialog.js';
   import { loadAllContent, resolveDialogNode } from './engine/loader.js';
@@ -10,13 +10,48 @@
     entryDialogChosen, entryDialogEnded,
     entryInteractableUsed,
   } from './engine/log.js';
+  import { gmPreSession } from './gm/index.js';
   import RoomMessage from './ui/RoomMessage.svelte';
+  import SafetyScreen from './ui/SafetyScreen.svelte';
 
   // Active save slot — will come from a slot picker eventually
   const SLOT = 'slot_1';
 
+  // ── Safety / boarding ─────────────────────────────────────────────────────
+  let boarded = false;
+  let gmSafetyEntries = [];   // { text, cite: 'station' } — from GM pre-session
+  let gmLoading = true;
+
+  onMount(async () => {
+    // GM runs first — registers its own lines/veils before player sees the screen
+    try {
+      const gmResult = await gmPreSession();
+      gmSafetyEntries = gmResult ?? [];
+    } catch (e) {
+      console.warn('[GM] Pre-session failed — continuing without GM entries:', e.message);
+    }
+    gmLoading = false;
+
+    // Load content and save state
+    loadAllContent();
+    try {
+      await save.load(SLOT);
+    } catch (e) {
+      console.warn('[Save] Server unavailable — running without persistence:', e.message);
+      markVisited('arrival_bay');
+    }
+  });
+
+  function handleBoard(e) {
+    // Save player's final lines/veils to state for GM context
+    setFlag('safety_lines', e.detail.lines);
+    setFlag('safety_veils', e.detail.veils);
+    if (e.detail.provenanceEarly) setFlag('provenance_unlocked', true);
+    boarded = true;
+  }
+
   // ── Inline message (replaces alert()) ────────────────────────────────────
-  let message = null; // { text, duration }
+  let message = null;
 
   function showMessage(text, duration = 3500) {
     message = { text, duration };
@@ -25,19 +60,6 @@
   function clearMessage() {
     message = null;
   }
-
-  // ── Boot ──────────────────────────────────────────────────────────────────
-  // Order: load YAML rooms → load save (restores state + overlays)
-  onMount(async () => {
-    loadAllContent();
-    try {
-      await save.load(SLOT);
-    } catch (e) {
-      // Server not running — degrade gracefully, log loudly
-      console.warn('[Save] Server unavailable — running without persistence:', e.message);
-      markVisited('arrival_bay');
-    }
-  });
 
   // ── Derived display state ─────────────────────────────────────────────────
   $: room = $rooms[$currentRoomId];
@@ -98,6 +120,13 @@
   }
 </script>
 
+{#if !boarded}
+  <SafetyScreen
+    {gmLoading}
+    {gmSafetyEntries}
+    on:proceed={handleBoard}
+  />
+{:else}
 <main class="station">
   {#if room}
     <!-- Room header -->
@@ -188,13 +217,14 @@
     </div>
   {/if}
 </main>
+{/if}
 
 <style>
   :global(*, *::before, *::after) { box-sizing: border-box; }
 
   :global(body) {
-    background: #0a0a12;
-    color: #c8c8d4;
+    background: #f5f4f0;
+    color: #2a2a2a;
     font-family: 'Georgia', serif;
     margin: 0;
     padding: 0;
@@ -220,7 +250,7 @@
     font-size: 1.05rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #6a6a8a;
+    color: #888880;
     margin: 0;
   }
 
@@ -228,7 +258,7 @@
     line-height: 1.85;
     white-space: pre-line;
     margin: 0.5rem 0 1.5rem;
-    color: #b8b8cc;
+    color: #3a3a38;
   }
 
   /* DEV ONLY: orange badge on GM-generated rooms */
@@ -251,7 +281,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: #44445a;
+    color: #aaa89f;
     margin: 1.75rem 0 0.6rem;
     font-family: monospace;
   }
@@ -261,8 +291,8 @@
   button {
     display: block;
     background: none;
-    border: 1px solid #22223a;
-    color: #b0b0c8;
+    border: 1px solid #d4d0c8;
+    color: #4a4a48;
     padding: 0.5rem 1rem;
     margin-bottom: 0.35rem;
     cursor: pointer;
@@ -275,14 +305,14 @@
   }
 
   button:hover:not(:disabled) {
-    border-color: #5050a0;
-    color: #e0e0f0;
+    border-color: #888880;
+    color: #1a1a18;
   }
 
   button:disabled,
   button.locked {
-    color: #333348;
-    border-color: #18182a;
+    color: #c8c5bc;
+    border-color: #e8e5dc;
     cursor: not-allowed;
   }
 
@@ -296,15 +326,15 @@
   .dialog-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(5, 5, 14, 0.82);
+    background: rgba(240, 238, 232, 0.88);
     display: flex;
     align-items: flex-end;
     padding: 1.5rem;
   }
 
   .dialog-box {
-    background: #0c0c1c;
-    border: 1px solid #2a2a50;
+    background: #faf9f6;
+    border: 1px solid #ccc9be;
     padding: 1.5rem;
     max-width: 680px;
     width: 100%;
@@ -315,7 +345,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: #4a4a80;
+    color: #aaa89f;
     margin: 0 0 0.6rem;
     font-family: monospace;
   }
@@ -324,23 +354,23 @@
     line-height: 1.85;
     margin-bottom: 1.25rem;
     white-space: pre-line;
-    color: #c0c0d8;
+    color: #2a2a28;
   }
 
   .option-btn {
-    color: #9090b8;
-    border-color: #1e1e36;
+    color: #6a6a68;
+    border-color: #dedad2;
   }
 
   .option-btn:hover:not(:disabled) {
-    color: #e0e0f8;
-    border-color: #4a4a90;
+    color: #1a1a18;
+    border-color: #888880;
   }
 
   /* ── Misc ──────────────────────────────────────────────────────────────── */
 
   .loading {
-    color: #333348;
+    color: #c8c5bc;
     font-style: italic;
     margin-top: 3rem;
   }

@@ -7,7 +7,7 @@
 # ─────────────────────────────────────────────────────────────
 
 id: arrival_bay
-name: Arrival Bay
+name: "[NAME OF THE FIRST PLACE. IT IS A BAY. FOR ARRIVING.]"
 act: 1
 gmGenerated: false
 
@@ -19,15 +19,15 @@ gm_hint: |
   The corridor forward leads deeper in; orientation is the tutorial branch.
 
 description: |
-  The docking collar sighs open and cold light floods in.
-  The station smells like recycled air and something older — ozone,
-  maybe, or the faint mineral trace of deep space. Your cohort
-  shuffles through ahead of you.
+  [YOU HAVE ARRIVED. SOMEWHERE. THE DETAILS ARE ATMOSPHERIC AND VAGUELY
+  OMINOUS IN A WAY THAT SUGGESTS THEMES WILL OCCUR LATER. THERE IS A SMELL.
+  IT MEANS SOMETHING. OTHER PEOPLE ARE ALSO HERE, ESTABLISHING THAT YOU ARE
+  NOT ALONE. YET.]
 
-  A long corridor stretches forward. To your left, a door marked
-  ORIENTATION. Ahead, the corridor curves out of sight.
+  [A CORRIDOR GOES FORWARD. A DOOR IS TO THE LEFT. BOTH OF THESE ARE OPTIONS
+  THE PLAYER CAN TAKE. THE PLAYER SHOULD TAKE ONE OF THEM. EVENTUALLY.]
 
-  Dr. Yuen is already talking.
+  [THERE IS A WOMAN. SHE IS TALKING. THIS IS THE TUTORIAL NPC.]
 
 exits:
   forward:
@@ -37,21 +37,20 @@ exits:
 
 npcs:
   - id: dr_yuen
-    name: Dr. Yuen
-    description: Your faculty lead. She has been here before — or says she has.
+    name: "[AUTHORITY FIGURE, FEMALE, SCIENCE-FLAVORED]"
+    description: "[SHE IS IN CHARGE. SHE KNOWS THINGS. SHE WILL NOT TELL YOU THE THINGS.]"
     dialog:
       entry: yuen_arrival_entry
 
 interactables:
   - id: docking_notice
-    name: Notice Board
-    description: A printed sheet of paper taped to the wall. Curling at the edges.
+    name: "[SIGN ON WALL]"
+    description: "[A PIECE OF PAPER TAPED TO A WALL. IT HAS BEEN THERE A WHILE. IT SHOWS.]"
     text: |
-      WELCOME, COHORT 7.
-      Please proceed to Orientation before exploring common areas.
-      Do not enter the Relay Room without a staff escort.
-      Station systems are currently in passive mode.
-      — Station Administration
+      [WELCOME MESSAGE WITH RULES THAT HINT AT DANGER.
+      THE RULES INCLUDE AT LEAST ONE RULE THAT WILL BE BROKEN.
+      THERE IS A SIGNATURE FROM SOMEONE OFFICIAL.
+      INSTITUTION VIBES. VERY OFFICIAL. VERY FINE.]
     setFlag: read_docking_notice
 
 dialog:
@@ -60,17 +59,17 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      "Cohort seven — eyes up. I know you're tired. The disorientation
-      is normal; the transit field does something to your inner ear.
-      Take a breath."
+      "[THE AUTHORITY FIGURE SAYS SOMETHING REASSURING THAT IS ACTUALLY SLIGHTLY
+      UNSETTLING IF YOU THINK ABOUT IT. SHE ACKNOWLEDGES THE JOURNEY.
+      SHE TELLS YOU WHAT YOU FEEL IS NORMAL. YOU BEGIN TO WONDER IF IT IS NORMAL.]"
     options:
-      - text: "What is this place exactly?"
+      - text: "[PLAYER ASKS THE OBVIOUS QUESTION ABOUT WHERE THEY ARE.]"
         source: authored
         next: yuen_what_is_this
-      - text: "How long are we here?"
+      - text: "[PLAYER ASKS THE PRACTICAL QUESTION ABOUT HOW LONG THIS WILL TAKE.]"
         source: authored
         next: yuen_how_long
-      - text: Say nothing and look around.
+      - text: "[PLAYER SAYS NOTHING. PLAYER IS BEING ENIGMATIC OR POSSIBLY JUST TIRED.]"
         source: authored
         next: null
 
@@ -79,21 +78,21 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      "Research station. Officially. There's an anomaly in the local
-      semantic field — language behaves differently out here. Our job
-      is to observe and document."
+      "[SHE EXPLAINS THE PREMISE OF THE GAME. TECHNICALLY. IN A WAY THAT IS
+      REASSURING ON THE SURFACE AND DEEPLY ALARMING IF YOU HAVE PLAYED GAMES BEFORE.
+      SHE USES JARGON. THE JARGON IS REAL. THAT'S WORSE.]"
 
-      She pauses, looking at something just past your shoulder.
+      "[SHE LOOKS AT SOMETHING. THE SOMETHING IS NOT THERE. OR IS IT.]"
 
-      "Stay with the group."
+      "[SHE TELLS YOU TO STAY WITH THE GROUP. THE GROUP WILL NOT HELP YOU.]"
     options:
-      - text: "Semantic field?"
+      - text: "[PLAYER ASKS ABOUT THE JARGON.]"
         source: authored
         next: yuen_semantic_field
-      - text: "What's past your shoulder?"
+      - text: "[PLAYER ASKS ABOUT THE THING SHE LOOKED AT.]"
         source: authored
         next: yuen_nothing_there
-      - text: Nod and move on.
+      - text: "[PLAYER ACCEPTS THIS EXPLANATION AND MOVES ON LIKE A REASONABLE PERSON.]"
         source: authored
         next: null
 
@@ -102,14 +101,14 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      "Three weeks. Maybe four. It depends on what we find."
-
-      She says it like she's reading from a script she doesn't quite believe.
+      "[SHE GIVES A NUMBER. THE NUMBER IS PROVISIONAL. THE PROVISIONALITY
+      IS ITSELF SUSPICIOUS. SHE DOES NOT SEEM TO FULLY BELIEVE THE NUMBER.
+      THE PLAYER SHOULD NOT FULLY BELIEVE THE NUMBER EITHER.]"
     options:
-      - text: "Depends on what you find how?"
+      - text: "[PLAYER FOLLOWS UP ON THE SUSPICIOUS PROVISIONALITY.]"
         source: authored
         next: yuen_depends
-      - text: Nod and move on.
+      - text: "[PLAYER LETS IT GO. PLAYER HAS GIVEN UP ALREADY. GOOD INSTINCTS.]"
         source: authored
         next: null
 
@@ -118,11 +117,11 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      "Language has topology. Meaning has weight, distance, direction.
-      Out here, those properties behave — unusually.
-      You'll see. Or you'll feel it first."
+      "[SHE EXPLAINS THE CENTRAL CONCEIT OF THE GAME IN POETIC LANGUAGE.
+      IT SOUNDS LIKE PHILOSOPHY. IT IS ALSO LITERALLY TRUE IN THIS WORLD.
+      THIS IS THE THEME. THE THEME HAS BEEN STATED. YOU MAY NOW HAVE FEELINGS.]"
     options:
-      - text: Nod and move on.
+      - text: "[PLAYER NODS. PLAYER MOVES ON. THE THEME FOLLOWS ANYWAY.]"
         source: authored
         next: null
 
@@ -131,12 +130,11 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      She turns. The corridor is empty.
-      "Nothing. I get turned around in here sometimes."
-
-      She doesn't seem convinced by her own answer.
+      "[SHE LOOKS. THERE IS NOTHING THERE. THIS IS CONFIRMED. IT IS CONFIRMED
+      IN A WAY THAT MAKES YOU FEEL THERE IS DEFINITELY SOMETHING THERE.
+      SHE EXPLAINS HERSELF. THE EXPLANATION EXPLAINS NOTHING. THIS IS INTENTIONAL.]"
     options:
-      - text: Nod and move on.
+      - text: "[PLAYER NODS. THE NOD ACCOMPLISHES NOTHING. NOTHING WAS THERE. PROBABLY.]"
         source: authored
         next: null
 
@@ -145,13 +143,13 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      A long pause.
-      "On how cooperative the station is."
+      "[LONG PAUSE. THE PAUSE IS LOAD-BEARING. SHE THEN SAYS A THING
+      THAT ANTHROPOMORPHIZES INFRASTRUCTURE IN AN OMINOUS WAY.]"
     options:
-      - text: "Cooperative?"
+      - text: "[PLAYER PICKS UP ON THE ANTHROPOMORPHIZATION.]"
         source: authored
         next: yuen_cooperative
-      - text: Let it go.
+      - text: "[PLAYER DECIDES NOT TO PICK AT THIS PARTICULAR THREAD. COWARD. WISE.]"
         source: authored
         next: null
 
@@ -160,10 +158,10 @@ dialog:
     speaker: dr_yuen
     source: authored
     text: |
-      "The systems. Old hardware. You know how it is."
-
-      She is already walking toward Orientation.
+      "[SHE BACKTRACKS. SHE SAYS SHE MEANT HARDWARE. THE HARDWARE IS FINE.
+      EVERYTHING IS FINE. SHE IS ALREADY WALKING AWAY.
+      THE CONVERSATION IS OVER NOW. SHE HAS DECIDED.]"
     options:
-      - text: Follow her.
+      - text: "[PLAYER FOLLOWS. THERE IS NO OTHER OPTION. THERE NEVER WAS.]"
         source: authored
         next: null
